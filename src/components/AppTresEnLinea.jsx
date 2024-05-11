@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import '../index.css'
-import confetti from 'canvas-confetti'
 import { Square } from './Square.jsx'
 import { TURNS } from '../constants/constantTicTacToe.jsx'
 import { checkWinner, checkEndGame } from '../utils/logicTicTacToe.jsx'
@@ -33,7 +32,6 @@ export function AppTresEnLinea() {
 
         const newWinner = checkWinner(newBoard)
         if (newWinner) {
-            confetti()
             setWinner(newWinner)
         } else if (checkEndGame(newBoard)) {
             setWinner(false)
@@ -42,9 +40,10 @@ export function AppTresEnLinea() {
     }
 
     return (
-        <main className="board">
+        <main className="board flex flex-col">
             <Title title={"Tres en linea"}/>
-            <button onClick={resetGame}>Resetar juego</button>
+            <section className='flex flex-col md:flex-row justify-center items-center gap-10'>
+                <button className='h-full' onClick={resetGame}>Resetar juego</button>
             <section className='game gradient-text-1'>
                 {
                     board.map((square, index) => (
@@ -69,6 +68,8 @@ export function AppTresEnLinea() {
             </section>
 
             <WinnerModalTicTacToe resetGame={resetGame} winner={winner} />
+            </section>
+            
 
         </main>
     )
